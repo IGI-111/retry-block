@@ -1,0 +1,25 @@
+[package]
+name = "retry-block"
+version = "1.0.0"
+edition = "2021"
+authors = [
+    "IGI-111 <igi-111@protonmail.com>",
+]
+
+[dependencies]
+async-trait = { optional = true, version = "0.1.53" }
+futures-util = { optional = true, version = "0.3.21" }
+rand = { optional = true, version = "0.8.5" }
+serde = { optional = true, version = "1.0.136", features = ["derive"] }
+tokio = { optional = true, version = "1.17.0", features = ["sync", "time", "macros", "rt-multi-thread", "signal", "test-util"] }
+tokio-stream = { optional = true, version = "0.1.8" }
+
+[dev-dependencies]
+rand_xorshift = "0.3.0"
+
+[features]
+default = ["random", "config", "future", "persist"]
+random = ["rand"]
+config = ["serde"]
+future = ["tokio"]
+persist = ["tokio", "tokio-stream", "futures-util", "async-trait"]
