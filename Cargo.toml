@@ -5,6 +5,9 @@ edition = "2021"
 authors = [
     "IGI-111 <igi-111@protonmail.com>",
 ]
+license = "MIT"
+description = "Utilities to retry operations that may fail with configurable backoff behavior using macros over blocks of code"
+repository = "https://github.com/IGI-111/retry-block"
 
 [dependencies]
 async-trait = { optional = true, version = "0.1.53" }
