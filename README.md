@@ -22,12 +22,7 @@ and exponential back-off.
 The `Iterator` API can be used to limit or modify the delay strategy. For example, to limit the
 number of retries to 1:
 
-```
-# use retry_block::retry;
-# use retry_block::delay::Fixed;
-# use std::time::Duration;
-# use retry_block::OperationResult;
-
+```rust
 let mut collection = vec![1, 2, 3].into_iter();
 
 let result = retry!(Fixed::new(Duration::from_millis(100)).take(1), {
