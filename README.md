@@ -7,8 +7,53 @@ configurable backoff behavior using macros over blocks of code
 
 # Usage
 
-Retry an operation using the corresponding `retry` macro or `retry_fn` function. The macro
-accepts an iterator over `Duration`s and a block that returns a `Result` (or `OperationResult`;
+Retry an operation using the corresponding `retry` macro or `retry_fn` function. 
+
+```rust
+let mut tried = false;
+let value = retry!(
+    // an `IntoIterator<Item = Duration>`
+    Fixed::new(Duration::from_millis(1)),
+
+    // a block that returns an `Into<OperationResult<_, _>>`
+    {
+        if tried {
+            Ok(42)
+        } else {
+            tried = true;
+            Err("try again")
+        }
+
+    }
+).unwrap();
+
+assert_eq!(value, 42);
+```
+
+```rust
+#[tokio::main]
+async fn main() {
+    let mut tried = false;
+
+    let value = async_retry!(
+        // an `IntoIterator<Item = Duration>`
+        Fixed::new(Duration::from_millis(1)),
+
+        // a block that returns an `Into<OperationResult<_, _>>`
+        {
+            if tried {
+                Ok(42)
+            } else {
+                tried = true;
+                Err("try again")
+            }
+        }
+    );
+    assert_eq!(value, Ok(42));
+}
+```
+
+The macro accepts an iterator over `Duration`s and a block that returns a `Result` (or `OperationResult`;
 see below). The iterator is used to determine how long to wait after each unsuccessful try and
 how many times to try before giving up and returning `Result::Err`. The block determines either
 the final successful value, or an error value, which can either be returned immediately or used
