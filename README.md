@@ -1,4 +1,6 @@
 # `retry-block`
+<a href="https://crates.io/crates/retry-block"><img src="https://img.shields.io/crates/v/retry-block.svg" alt="Crate status"/></a>
+<a href="https://docs.rs/retry-block"><img src="https://img.shields.io/docsrs/retry-block" alt="Crate docs"/></a>
 
 `retry-block` provides utilities to retry operations that may fail with
 configurable backoff behavior using macros over blocks of code
