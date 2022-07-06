@@ -53,8 +53,7 @@ async fn main() {
 }
 ```
 
-The macro accepts an iterator over `Duration`s and a block that returns a `Result` (or `OperationResult`;
-see below). The iterator is used to determine how long to wait after each unsuccessful try and
+The macro accepts an iterator over `Duration`s and a block that returns a `Result` (or `OperationResult` if you want to explicitly control the retry/bail behavior). The iterator is used to determine how long to wait after each unsuccessful try and
 how many times to try before giving up and returning `Result::Err`. The block determines either
 the final successful value, or an error value, which can either be returned immediately or used
 to indicate that the operation should be retried.
